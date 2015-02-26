@@ -11,6 +11,9 @@
 
 # OS generated files #
 ######################
+.htaccess
+.revision
+.editorconfig
 .DS_Store
 .DS_Store?
 ._*
