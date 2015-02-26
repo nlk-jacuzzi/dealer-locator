@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+# force jacuzzi.com non-www to www redirect
+RewriteCond %{HTTP_HOST} ^jacuzzi.com
+RewriteRule ^(.*)$ http://www.jacuzzi.com/hot-tubs/dealer-locator/$1 [R=301,L]
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

@@ -1,0 +1,185 @@
+<body onunload="GUnload()">
+	<!-- Locate A Dealer -->
+	<div class="breadcrumbs">
+		<?php if(!empty($d)):?>
+			<a title="Hot Tub Stores" href="<?php echo ($_SERVER['SERVER_NAME'] == 'localhost') ? BASEDIR.'/index/' : '/dealer-locator/'; ?>">Search</a> >
+			<a title="Hot Tub Stores" href="<?php echo ($_SERVER['SERVER_NAME'] == 'localhost') ? BASEDIR.'/index/' : '/dealer-locator/'; ?>"><?php if(!empty($d['Country']['name']) && $d['Country']['name'] == 'United States') echo $d['Country']['name'] ?></a> >
+			<a title="<?php if(!empty($d['State']['name'])) echo 'Hot Tubs in '.$d['State']['name']?>" href="<?php echo BASEDIR;?>/<?php echo $stateInfo ?>/"><?php echo $d['State']['name']?></a> >
+			<a title="<?php if(!empty($d['Dealer']['city'])) echo ucwords(strtolower($d['Dealer']['city'])).' Hot Tub Stores'?>" href="<?php echo BASEDIR;?>/<?php echo $stateInfo ?>/<?php echo $cityInfo ?>/"><?php echo ucwords(strtolower($d['Dealer']['city']))?></a> >
+			<?php echo (!empty($d['Dealer']['name'])) ? strtoupper($d['Dealer']['name']) : ''; ?>
+		<?php else: ?>
+			<a title="Hot Tub Stores" href="<?php echo ($_SERVER['SERVER_NAME'] == 'localhost') ? BASEDIR.'/index' : '/dealer-locator/'; ?>">Search</a> > Results
+		<?php endif; ?>
+	</div>
+	<div class="bar">
+		<h1 class="header">
+			<?php echo (!empty($d)) ? strtoupper($d['Dealer']['name']) : '' ?>
+		</h1>
+	</div>
+	<div>
+		<div id="toptext">
+			<h2><?php echo $lngTxt['locateDealer'] ?></h2>
+			<p><?php echo $lngTxt['toFind'] ?></p>
+		</div>
+		<div id="tranbox">
+            <form action="<?php echo BASEDIR;?>/cities/" method="post" name="countryZipForm" id="countryZipForm" onSubmit="document.getElementById('zipcodeSearch').value=1;">
+				<input type="hidden" name="zipcodeSearch" id="zipcodeSearch" value="0">
+ 			  	<div id="country"><label for="countryInput">Country:</label><br />
+			  	<?php echo $html->selectTag("Dealer/country_id", $countryList, $defaultCtry, array('id'=>'countryInput', 'name'=>'country', 'onChange'=>'disableZip()'), null, false); #drop down list of countries ?></div>
+			  	<div id="zipcode" ><label for="zipcodeInput">Zip Code:</label> <input id="zipcodeInput" type="text" name="zip" /> <input id="go" type="submit" value="Go" onclick="document.getElementById('zipcodeSearch').value=1;"/></div>
+            </form>
+		</div>
+	</div>
+	<div id="main">
+		<div class="clear"></div>
+		<?php if(empty($d)):?>
+			<div class="bar2">No Results Found</div>
+		<?php else: ?>
+			<div class="bar2"><?php echo strtoupper($d['Dealer']['name']) ?></div>
+			<div class="address">
+		  		<span><?php echo $d['Dealer']['phone']?></span><br/>
+				<?php echo $d['Dealer']['address1'];
+				$googleMapAddr = (!empty($d['Dealer']['address1'])) ? trim($d['Dealer']['address1']).' ' : '';
+				if(!empty($d['Dealer']['address2'])):
+					echo '<Br>'.$d['Dealer']['address2'];
+					$googleMapAddr .= (!empty($d['Dealer']['address2'])) ? trim($d['Dealer']['address2']).' ' : '';
+				endif;
+				if(!empty($d['Dealer']['city'])):
+					echo '<Br>'.$d['Dealer']['city'];
+					$googleMapAddr .= (!empty($d['Dealer']['city'])) ? trim($d['Dealer']['city']).' ' : '';
+				endif;
+				if(!empty($d['State']['abbreviation'])):
+					echo ', '.$d["State"]["abbreviation"];
+					$googleMapAddr .= (!empty($d['State']['abbreviation'])) ? trim($d['State']['abbreviation']).' ' : '';
+				endif;
+				if(!empty($d['Dealer']['zip'])):
+					echo ' '.$d["Dealer"]["zip"];
+					$googleMapAddr .= (!empty($d['Dealer']['zip'])) ? trim($d['Dealer']['zip']) : '';
+				endif;
+				$googleMapAddrNew = str_replace(' ', '+', $googleMapAddr);
+				?>
+				<?php if(!empty($d['Dealer']['email'])): ?>
+					<a href="mailto:<?php echo $d['Dealer']['email']?>"><?php echo $d['Dealer']['email']?></a>
+				<?php endif; ?>
+				<?php if(!empty($d['Dealer']['website'])): ?>
+			 		<div id="website"><a href="<?php echo BASEDIR.'/omniture/'.$d["Dealer"]["id"]?>" target="_blank" rel="nofollow">View Website</a></div>
+				<?php endif; ?>
+				<?php ?>
+				<a href="http://maps.google.com/maps?f=d&hl=en&geocode=&saddr=&daddr=<?php echo $googleMapAddr; ?>" target="_new"><img border=0 src="<?php echo BASEDIR?>/img/btndirections.jpg" /></a>
+			</div>
+			<div class="links">
+				<div id="map" style="border: 1px solid #999999; width: 288px; height: 250px; margin-top: 10px;"></div>
+			</div>
+		<?php endif; ?>
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+	<?php if(isset($nearbyCities) && !empty($nearbyCities)):?>
+		<div class="bar4"><a href="#" onClick="toggle_element( 'searchbystate' ); return false;" style="color: gray;text-decoration: none;">+/- Search By Nearby Cities</a></div>
+		<div id="searchbystate" class="nobarbox" style="display: none;">
+	    	<?php foreach($nearbyCities as $nearbyCity):
+	        	echo '<ul >'.$nearbyCity.'</ul>';
+		    endforeach; ?>
+			<div class="clear"></div>
+		</div>
+	<?php endif; ?>
+
+</body>
+<?php
+  $_SESSION['inUSCA'] = $inUSCA;
+?>
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAR58Ke3EASr0FlhkpuTrO-xQymSwZYXwTMn-fcgTG5SPdgoBm6xT-xnqUCS2C1r_C17WKAUosPjpE0g" type="text/javascript"></script>
+<script type="text/javascript">
+disableZip();
+function disableZip()
+{
+	var countryID = document.getElementById('countryInput').value;
+	if(countryID != '1' && countryID != '3')
+	{
+		document.getElementById('zipcodeInput').disabled = true;
+		document.getElementById('zipcodeInput').value = '';
+	}
+	else
+	{
+		document.getElementById('zipcodeInput').disabled = false;
+	}
+}
+      //<![CDATA[
+
+	var map = null;
+    var geocoder = null;
+	<?php if(!empty($d)):?>
+		load();
+	<?php endif; ?>
+
+	function load() {
+		if (GBrowserIsCompatible()) {
+			map = new GMap2(document.getElementById("map"));
+          	geocoder = new GClientGeocoder();
+
+          	var mapTypeControl = new GMapTypeControl();
+          	var bottomRight = new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(10,10));
+          	GEvent.addListener(map, "dblclick", function(){ map.removeControl(mapTypeControl); map.addControl(new GMapTypeControl(), bottomRight);});
+          	map.addControl(new GSmallMapControl());
+        }
+        showAddress( '<?php echo $googleMapAddr?>' );
+      }
+
+      function showAddress(address) {
+        if (geocoder) {
+          geocoder.getLatLng(
+            address,
+            function(point) {
+              if (!point) {
+                alert(address + " not found");
+              } else {
+                map.setCenter(point, 13);
+                var marker = new GMarker(point);
+                map.addOverlay(marker);
+                //marker.openInfoWindowHtml(address);
+              }
+            }
+          );
+        }
+      }
+      //]]>
+    </script>
+
+<!-- SiteCatalyst code version: H.10.
+Copyright 1997-2007 Omniture, Inc. More info available at
+http://www.omniture.com -->
+<script language="JavaScript" src="http://www.jacuzzihottubs.com/wp-content/themes/jht/js/SiteCatalyst.js"></script>
+<script language="JavaScript"><!--
+/* You may give each page an identifying name, server, and channel on
+the next lines. */
+s.pageName=""
+s.server=""
+s.channel=""
+s.pageType=""
+s.prop1=""
+s.prop2=""
+s.prop3=""
+s.prop4=""
+s.prop5=""
+/* Conversion Variables */
+s.campaign=""
+s.state=""
+s.zip=""
+s.events=""
+s.products=""
+s.purchaseID=""
+s.eVar1=""
+s.eVar2="<?php echo $_SESSION['country']; ?>"
+s.eVar3="<?php if(!empty($_SESSION['inUSCA'])) { echo $_SESSION['zip']; } ?>"
+s.eVar4=""
+s.eVar5=""
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+<script language="JavaScript"><!--
+if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+//--></script><noscript><a href="http://www.omniture.com" title="Web Analytics"><img
+src="http://jacuzzipremiumhottubs.jacuzzi.com.112.2O7.net/b/ss/jacuzzipremiumhottubs.jacuzzi.com/1/H.10--NS/0"
+height="1" width="1" border="0" alt="" /></a></noscript><!--/DO NOT REMOVE/-->
+<!-- End SiteCatalyst code version: H.10. -->
+
