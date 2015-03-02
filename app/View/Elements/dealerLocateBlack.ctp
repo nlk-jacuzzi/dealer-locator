@@ -58,13 +58,14 @@
 </div>
 
 <div class="main additionalinfo">
-    <?php if (strpos($_SERVER['HTTP_HOST'], '.ca') === false) {?>
-        <h2>Popular Cities</h2>
+    <?php if (strpos($_SERVER['HTTP_HOST'], '.ca') !== false) {?>
+        <h2>Canadian Cities</h2>
         <div class="horz660"></div>
         <ul class="lists">
             <?php 
             $i = 1;
             $lastCity = count($popular_ca_cities)-1;
+            $pop_ca_cities_length = ceil(count($popular_ca_cities)/4);
 
             foreach($popular_ca_cities as $key => $s){
                 $stateUrl = str_replace(' ', '-', strtolower($s['State']['name'].'-'.$s['State']['abbreviation']));
@@ -75,11 +76,39 @@
                 echo $this->Html->link($s['Dealer']['city'], '/'.$stateUrl.'/'.$s['Dealer']['slug'], array('title' => $s['Dealer']['city'].' Hot Tubs'));
                 echo '</li>';
 
-                if($i == 13){
+                if($i == $pop_ca_cities_length){
                     echo '</ul></li>';
                     $i = 1;
                     continue;
                 }elseif($key == $lastCity){
+                    echo '</ul></li></ul>';
+                    break;
+                }
+                $i++;
+            }
+            ?>
+        <h2>Search by Canadian Province</h2>
+        <div class="horz660"></div>
+        <ul class="lists">
+            <?php 
+            $i = 1;
+            $lastProv = count($provList)-1;
+            $prov_length = ceil(count($provList)/4);
+
+            foreach($provList as $key => $s){
+                $provUrl = str_replace(' ', '-', strtolower($s['State']['name'].'-'.$s['State']['abbreviation']));
+                if($i == 1)
+                    echo '<li><ul class="list">';
+
+                echo '<li>'; 
+                echo $this->Html->link($s['State']['name'], '/'.$provUrl.'/', array('title' => 'Hot Tubs in '.$s['State']['name']));
+                echo '</li>';
+
+                if($i == $prov_length){
+                    echo '</ul></li>';
+                    $i = 1;
+                    continue;
+                }elseif($key == $lastProv){
                     echo '</ul></li></ul>';
                     break;
                 }
@@ -151,31 +180,4 @@
             }
             ?>
     <?php }?>
-    <h2>Search by Canadian Province</h2>
-    <div class="horz660"></div>
-    <ul class="lists">
-        <?php 
-        $i = 1;
-        $lastProv = count($provList)-1;
-
-        foreach($provList as $key => $s){
-            $provUrl = str_replace(' ', '-', strtolower($s['State']['name'].'-'.$s['State']['abbreviation']));
-            if($i == 1)
-                echo '<li><ul class="list">';
-
-            echo '<li>'; 
-            echo $this->Html->link($s['State']['name'], '/'.$provUrl.'/', array('title' => 'Hot Tubs in '.$s['State']['name']));
-            echo '</li>';
-
-            if($i == 4){
-                echo '</ul></li>';
-                $i = 1;
-                continue;
-            }elseif($key == $lastProv){
-                echo '</ul></li></ul>';
-                break;
-            }
-            $i++;
-        }
-        ?>
 </div>

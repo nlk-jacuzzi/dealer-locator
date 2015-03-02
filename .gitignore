@@ -11,15 +11,12 @@
 
 # OS generated files #
 ######################
-.htaccess
-.revision
-.editorconfig
+.svn
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-.svn
 Icon?
 ehthumbs.db
 Thumbs.db
