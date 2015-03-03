@@ -72,7 +72,7 @@
                 </style>
                 <div id="get-a-quote-btn">
                     <br />
-                    <a href="/get-a-quote/"><?php //echo $html->image('get_dealer_pricing_btn.png');?></a>
+                    <a href="<?php echo FULL_BASE_URL.dirname($this->base);?>/get-a-quote/"><?php //echo $html->image('get_dealer_pricing_btn.png');?></a>
                     <br />
                 </div>
             <?php if(isset($d['Dealer']['default_promo']) && $d['Dealer']['default_promo'] == 1 && !empty($d['Dealer']['additional_html_start']) && !empty($d['Dealer']['additional_html_end']) && $d['Dealer']['additional_html_start'] <= time() && $d['Dealer']['additional_html_end'] >= time()){ ?>
