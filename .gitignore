@@ -20,3 +20,6 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+.htaccess
+.revision
+.editorconfig
