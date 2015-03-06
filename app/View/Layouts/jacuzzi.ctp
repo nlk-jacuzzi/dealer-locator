@@ -93,12 +93,12 @@ var WRInitTime=(new Date()).getTime();
 </style>
 <!-- ClickTale end of Top part -->
 <div class="hero">
-    <?php if($this->action == 'states' && isset($stateName) && isset($name_abbrev)){?>
-        <div id="breadcrumbs">
-            <?php echo $this->Html->link('Hot Tubs', FULL_BASE_URL.dirname($this->base));?> > <?php echo $this->Html->link('Dealer Locator', '/');?> > <?php echo $this->Html->link($stateName, '/'.$name_abbrev);?>
-        </div>
-    <?php }?>
         <div class="wrap">
+            <?php if($this->action == 'states' && isset($stateName) && isset($name_abbrev)){?>
+                <div id="breadcrumbs">
+                    <?php echo $this->Html->link('Hot Tubs', FULL_BASE_URL.dirname($this->base));?> > <?php echo $this->Html->link('Dealer Locator', '/');?> > <?php echo $this->Html->link($stateName, '/'.$name_abbrev);?>
+                </div>
+            <?php }?>
             <h1 class="title"><?php echo $lngTxt['locateDealer'] ?></h1>
         </div>
     </div>
