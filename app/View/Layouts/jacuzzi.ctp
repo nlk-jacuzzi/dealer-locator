@@ -77,8 +77,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script type="text/javascript">
 var WRInitTime=(new Date()).getTime();
 </script>
+<style>
+    #breadcrumbs {
+        color: #777777;
+        left: 20px;
+        position: relative;
+        top: 95px;
+    }
+    #breadcrumbs a:link, 
+    #breadcrumbs a:visited, 
+    #breadcrumbs a:hover { 
+        color: #777777;
+        text-decoration: none;
+    }
+</style>
 <!-- ClickTale end of Top part -->
 <div class="hero">
+    <?php if($this->action == 'states' && isset($stateName) && isset($name_abbrev)){?>
+        <div id="breadcrumbs">
+            <?php echo $this->Html->link('Hot Tubs', FULL_BASE_URL.dirname($this->base));?> > <?php echo $this->Html->link('Dealer Locator', '/');?> > <?php echo $this->Html->link($stateName, '/'.$name_abbrev);?>
+        </div>
+    <?php }?>
         <div class="wrap">
             <h1 class="title"><?php echo $lngTxt['locateDealer'] ?></h1>
         </div>

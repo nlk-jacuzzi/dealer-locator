@@ -261,7 +261,25 @@
     </div>
 
     <div class="hero">
-      <div class="wrap">
+        <div class="wrap">
+            <style>
+                #breadcrumbs {
+                    color: #777777;
+                    left: 20px;
+                    position: relative;
+                    top: 95px;
+                }
+                #breadcrumbs a:link, 
+                #breadcrumbs a:visited, 
+                #breadcrumbs a:hover { 
+                    color: #777777;
+                    text-decoration: none;
+                }
+            </style>
+            <div id="breadcrumbs">
+                <?php $stateUrl = '/'.str_replace(' ', '-', strtolower($stateName.'-'.$dealer['State']['abbreviation']));?>
+                <?php echo $this->Html->link('Hot Tubs', FULL_BASE_URL.dirname($this->base));?> > <?php echo $this->Html->link('Dealer Locator', '/');?> > <?php echo $this->Html->link($stateName, $stateUrl);?> > <?php echo $this->Html->link($cityName, $stateUrl.'/'.$dealer['Dealer']['slug'].'/');?>
+            </div>
             <h1 class="title"><?php echo $cityName; ?> Hot Tub Dealer</h1>
         </div>
     </div>
