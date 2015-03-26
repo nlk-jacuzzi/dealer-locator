@@ -350,7 +350,7 @@
                         <div id="print-directions"><a onclick="PrintElem('.adp.classic')" >Print Directions</a></div>
                     </div>
 
-                    <div class="dealer-article">
+                    <div class="dealer-article" style="width:620px;">
                         <?php if(!empty($dealer['Dealer']['promo_image'])) { ?>
                             <div class="dealer-promo">
                                 <?php echo $this->Image->resize('/files/dealer_imgs/'.$dealer['Dealer']['id'].'/promo/'.$dealer['Dealer']['promo_image'], 640, 100);?>
@@ -374,6 +374,11 @@
                             </div>
                         <?php }?>
 
+                        <?php if(!empty($dealer['Dealer']['j_500_banner'])){?>
+                            <div class="j_500_banner">
+                                <?php echo $this->Html->image('j500.jpg', array('style' => 'width:100%;'));?>
+                            </div>
+                        <?php }?>
                         <div class="dealer-exp-vid">
                             <h2>Why a Dealer Visit is<br />your best next step</h2>
                             <p>Watch this video to learn about the<br />Jacuzzi dealer experience.</p>

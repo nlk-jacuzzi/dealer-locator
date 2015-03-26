@@ -207,6 +207,7 @@ class DealersController extends AppController
                         'alternate_truckload_state' => '',
                         'alternate_truckload_zip' => '',
                         'alternate_truckload_name' => '',
+                        'j_500_banner' => 0
                     )
                 );
             }else{
