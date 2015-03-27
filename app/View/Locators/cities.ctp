@@ -386,7 +386,12 @@
                             <!--a id="playJHTvideo" onclick="player.playVideo()"><span class="play-now">View Now</span></a-->
                             <!--[if lte IE 9]></div><![endif]-->
                             <div id="jhtVideo">
-                                <iframe width="312" height="176" src="//www.youtube.com/embed/cQTcoe4Zo6M" frameborder="0" allowfullscreen></iframe>
+                                <?php if(!empty($dealer['Dealer']['video_link'])){
+                                    $link = substr($dealer['Dealer']['video_link'], strrpos($dealer['Dealer']['video_link'], '/') + 1);
+                                }else{
+                                    $link = 'cQTcoe4Zo6M';
+                                }?>
+                                <iframe width="312" height="176" src="//www.youtube.com/embed/<?php echo $link;?>" frameborder="0" allowfullscreen></iframe>
                                 <!--iframe id="jhtVideo" width="312" height="176" src="//www.youtube.com/embed/cQTcoe4Zo6M?enablejsapi=1&playerapiid=jhtVideo" frameborder="0" allowfullscreen></iframe-->
                             </div>
                         </div>
