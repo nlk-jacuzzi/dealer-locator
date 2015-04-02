@@ -140,7 +140,7 @@ if($admin == 1){?>
                             'about_body' => array('wysiwyg' => 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent', 'label' => 'About Body'),
                             'show_service_area' => array('label' => 'Show service area?', 'type' => 'checkbox'),
                             'wet_test' => array('label' => 'Include Wet Test?'),
-                            'j_500_banner' => array('label' => 'Do you have a J-500 in store?', 'type' => 'checkbox'),
+                            'j_500_banner' => array('label' => 'Do you have a J-500 in store?', 'type' => 'checkbox', 'dealer_limit' => TRUE),
                             'video_link' => array('label' => 'Optional share link to YouTube video'),
                             'hours' => array('label' => 'Store Hours', 'wysiwyg' => 'undo redo'),
                             'latitude' => array('dealer_limit' => TRUE),
