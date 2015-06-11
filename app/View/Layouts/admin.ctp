@@ -32,7 +32,8 @@
         <?php echo $this->Html->link('Dealers', '/dealers/index', array('class' => $nav['dealers']));?>&nbsp;|&nbsp;
         <?php echo $this->Html->link('Pending ('.$pending_num.')', '/dealers/pending', array('class' => $nav['dealers']));?>&nbsp;|&nbsp;
         <?php echo $this->Html->link('Export', '/dealers/export', array('class' => $nav['dealers']));?>&nbsp;|&nbsp;
-        <?php echo $this->Html->link('Tools', '/dealers/find_dealers', array('class' => $nav['dealers']));?>
+        <?php echo $this->Html->link('Tools', '/dealers/find_dealers', array('class' => $nav['dealers']));?>&nbsp;|&nbsp;
+        <?php echo $this->Html->link('Custom Content Export', '/dealers/exportcustomexcel', array('class' => $nav['dealers']));?>
         <!--a href="<?php //echo BASEDIR;?>/dealers/index" class="<?php //echo $nav['dealers'];?>">Dealers</a>&nbsp;|&nbsp;
         <a href="<?php //echo BASEDIR;?>/dealers/export" class="<?php //echo $nav['dealers'];?>">Export</a-->
     <?php }else echo '&nbsp;';?>
