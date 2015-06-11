@@ -62,8 +62,8 @@ if (!empty($all))
 	$worksheet->writeString(0, 9, 'Dealer_Fax', $format_bold);
 	$worksheet->writeString(0, 10, 'Dealer_Email', $format_bold);
 	$worksheet->writeString(0, 11, 'Dealer_WebSite', $format_bold);
-	$worksheet->writeString(0, 14, 'More_Than_250_words', $format_bold);
-	$worksheet->writeString(0, 14, 'Last_Modified', $format_bold);
+	$worksheet->writeString(0, 12, 'More_Than_250_words', $format_bold);
+	$worksheet->writeString(0, 13, 'Last_Modified', $format_bold);
 	
 	$i = 1;
 	foreach ($all as $dealerID=>$dealer)
@@ -94,8 +94,8 @@ if (!empty($all))
 		$worksheet->writeString($i, 9, $dealer['Dealer']['fax']);
 		$worksheet->writeString($i, 10, $dealer['Dealer']['email']);
 		$worksheet->writeString($i, 11, $dealer['Dealer']['website']);
-		$worksheet->writeString($i, 11, $dealer['Dealer']['updated']);
-		$worksheet->writeString($i, 13, $greater_t);
+		$worksheet->writeString($i, 12, $greater_t);
+		$worksheet->writeString($i, 13, $dealer['Dealer']['updated']);
 		
 		$i++;
 	}
