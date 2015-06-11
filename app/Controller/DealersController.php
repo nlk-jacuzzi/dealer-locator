@@ -1631,6 +1631,45 @@ class DealersController extends AppController
         #header("Content-Transfer-Encoding: binary\n");
     }
     
+	
+    function exportcustom(){
+        $this->checkLogin();
+        $this->layout = "admin";
+        $query = $this->getQuery(); #calls getQuery() to get $_POST data from index.thtml
+        $this->set('countryList', $this->Country->getCountryList());
+        $this->set('stateList', $this->State->find('list', array('sort' => 'position ASC')));
+    }
+    
+    function exportcustomexcel()
+    {
+    	/* New Export */
+    	
+        $this->checkLogin();
+        ini_set("display_errors", false);
+        ini_set("memory_limit","256M");
+        $this->layout = "blank";
+        
+        #all Dealers
+        $all = $this->Dealer->find('all', array('conditions' => array('Dealer.dealer_id IS NULL AND Dealer.about_body IS NOT NULL'), 'recursive' => 0));
+        $this->set("all", $all);
+        
+        #filename of xls speadsheet
+        $fileName = trim($_POST['filename']);
+        if (empty($fileName)){
+            $fileName = "Updated Dealer";
+        }
+        $fileName .= ".xls";
+        $this->set('fileName', $fileName);
+
+        header("Pragma: public");
+        header("Expires: 0");
+        #header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        #header("Cache-Control: private",false); // required for certain browsers        
+        header("Content-Type: application/force-download");
+        header('Content-Disposition: attachment; filename="'.addslashes($fileName).'"' );
+        #header("Content-Transfer-Encoding: binary\n");
+    }
+    
     function email_notify_approval_ready($id){
         $this->email_update_received($id);
         $to = 'chris.barnwell@ninthlink.com';
