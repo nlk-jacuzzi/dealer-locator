@@ -62,7 +62,7 @@ if (!empty($all))
 	$worksheet->writeString(0, 9, 'Dealer_Fax', $format_bold);
 	$worksheet->writeString(0, 10, 'Dealer_Email', $format_bold);
 	$worksheet->writeString(0, 11, 'Dealer_WebSite', $format_bold);
-	$worksheet->writeString(0, 12, 'More_Than_250_words', $format_bold);
+	$worksheet->writeString(0, 12, 'More_Than_150_words', $format_bold);
 	$worksheet->writeString(0, 13, 'Last_Modified', $format_bold);
 	
 	$i = 1;
