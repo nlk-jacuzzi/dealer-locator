@@ -73,7 +73,7 @@ if (!empty($all))
 		$greater_t = 'N';
 		if($count_words > 0)
 		{
-			if($count_words >= 250)
+			if($count_words >= 150)
 			{
 				$greater_t = 'Y';
 			}	
