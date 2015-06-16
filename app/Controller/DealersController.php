@@ -1650,7 +1650,8 @@ class DealersController extends AppController
         $this->layout = "blank";
         
         #all Dealers
-        $all = $this->Dealer->find('all', array('conditions' => array('Dealer.dealer_id IS NULL AND Dealer.about_body IS NOT NULL'), 'recursive' => 0));
+        //$all = $this->Dealer->find('all', array('conditions' => array('Dealer.dealer_id IS NULL AND Dealer.about_body IS NOT NULL'), 'recursive' => 0));
+        $all = $this->Dealer->find('all', array('conditions' => array('Dealer.dealer_id IS NULL'), 'recursive' => 0));
         $this->set("all", $all);
         
         #filename of xls speadsheet
