@@ -62,8 +62,9 @@ if (!empty($all))
 	$worksheet->writeString(0, 9, 'Dealer_Fax', $format_bold);
 	$worksheet->writeString(0, 10, 'Dealer_Email', $format_bold);
 	$worksheet->writeString(0, 11, 'Dealer_WebSite', $format_bold);
-	$worksheet->writeString(0, 12, 'More_Than_150_words', $format_bold);
-	$worksheet->writeString(0, 13, 'Last_Modified', $format_bold);
+	$worksheet->writeString(0, 12, 'Custom_Content_Y_N', $format_bold);
+	$worksheet->writeString(0, 13, 'More_Than_150_words', $format_bold);
+	$worksheet->writeString(0, 14, 'Last_Modified', $format_bold);
 	
 	$i = 1;
 	foreach ($all as $dealerID=>$dealer)
@@ -71,15 +72,14 @@ if (!empty($all))
 		$count_words = count(str_word_count(strip_tags(strtolower($dealer['Dealer']['about_body'])), 1));
 		
 		$greater_t = 'N';
+		$custom_content = 'N';
 		if($count_words > 0)
 		{
+			$custom_content = 'Y';
 			if($count_words >= 150)
 			{
 				$greater_t = 'Y';
 			}	
-		}
-		else {
-			continue;
 		}
 		
 		$worksheet->writeString($i, 0, $dealer['Dealer']['dealer_number']);
@@ -95,7 +95,8 @@ if (!empty($all))
 		$worksheet->writeString($i, 10, $dealer['Dealer']['email']);
 		$worksheet->writeString($i, 11, $dealer['Dealer']['website']);
 		$worksheet->writeString($i, 12, $greater_t);
-		$worksheet->writeString($i, 13, $dealer['Dealer']['updated']);
+		$worksheet->writeString($i, 13, $custom_content);
+		$worksheet->writeString($i, 14, $dealer['Dealer']['updated']);
 		
 		$i++;
 	}
