@@ -94,8 +94,8 @@ if (!empty($all))
 		$worksheet->writeString($i, 9, $dealer['Dealer']['fax']);
 		$worksheet->writeString($i, 10, $dealer['Dealer']['email']);
 		$worksheet->writeString($i, 11, $dealer['Dealer']['website']);
-		$worksheet->writeString($i, 12, $greater_t);
-		$worksheet->writeString($i, 13, $custom_content);
+		$worksheet->writeString($i, 12, $custom_content);
+		$worksheet->writeString($i, 13, $greater_t);
 		$worksheet->writeString($i, 14, $dealer['Dealer']['updated']);
 		
 		$i++;
