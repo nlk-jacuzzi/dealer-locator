@@ -1798,7 +1798,7 @@ class DealersController extends AppController
 
     function email_notify_marketing($id, $is_new = true)
     {
-        $to = 'alex.levine@ninthlink.com';
+        $to = 'alex.levine@ninthlink.com,jamie.murrett@jacuzzi.com,amanda@ninthlink.com';
 
         // $to .= ', ' . 'someone-else@ninthlink.com';  // <--- to add another mail recipient uncomment this line and change email address
 
