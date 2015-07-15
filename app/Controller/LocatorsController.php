@@ -479,7 +479,7 @@ class LocatorsController extends AppController
             }
             $stateArray = explode('-', $state);
             $stateAbbr = $stateArray[count($stateArray)-1];
-            $stateInfo = $this->State->find('first', array('conditions' => array("State.abbreviation" => $stateAbbr), 'fields' => array('name', 'id')));
+            $stateInfo = $this->State->find('first', array('conditions' => array("State.abbreviation" => $stateAbbr), 'fields' => array('name', 'id', 'body')));
             $stateName = $stateInfo['State']['name'];
             $stateId = $stateInfo['State']['id'];
             $countryId = $this->State->getCountryId($stateId);
@@ -513,14 +513,19 @@ class LocatorsController extends AppController
             $this->set('cityList', $this->Dealer->find('all', array('conditions' => array('Dealer.state_id' => $stateId, 'published' => 'Y'), 'fields' => array('DISTINCT(city)'), 'order' => 'city', 'recursive' => -1)));
             //$this->set('cityList', $this->Dealer->findAll("Dealer.state_id = '".$stateId."'", array('DISTINCT(city)'), 'city', null, null, -1));
             $this->set("countryId", $countryId);
+            $this->set("stateInfo", $stateInfo);
             
             //layout variables
             if($countryId == 3){
-                $this->set('layoutTitle', 'Hot Tubs '.$stateName.': Find Hot Tub Spa Dealers in '.$stateName.' | Jacuzzi&reg; Hot Tubs');
-                $this->set('metaDesc', 'Find a wide selection of hot tubs and spas in '.$stateName.'. Jacuzzi&reg; Hot Tubs dealers offer spa accessories and covers at stores in '.$stateName.'.');
+                //$this->set('layoutTitle', 'Hot Tubs '.$stateName.': Find Hot Tub Spa Dealers in '.$stateName.' | Jacuzzi&reg; Hot Tubs');
+                //$this->set('metaDesc', 'Find a wide selection of hot tubs and spas in '.$stateName.'. Jacuzzi&reg; Hot Tubs dealers offer spa accessories and covers at stores in '.$stateName.'.');
+                $this->set('layoutTitle', 'Hot Tubs '.$stateName.': Find Authorized Hot Tub Dealers in '.$stateName.', Canada | Jacuzzi® Hot Tubs');
+                $this->set('metaDesc', 'Find authorized hot tub dealers in '.$stateName.'. Visit the showroom and find out first-hand what the Jacuzzi&reg; Brand experience is all about!');
             }else{
-                $this->set('layoutTitle', "Hot Tubs ".$stateName.": Find Jacuzzi&reg; Hot Tub Spa Dealers in ".$stateName." | Jacuzzi&reg; Hot Tubs");
-                $this->set('metaDesc', 'Find '.$stateName.' hot tub dealers of the world\'s most recognized brand, Jacuzzi&reg; Hot Tubs. Search for authorized Jacuzzi hot tub spa dealers in '.$stateName.' to find the best discounts and deals.');
+                //$this->set('layoutTitle', "Hot Tubs ".$stateName.": Find Jacuzzi&reg; Hot Tub Spa Dealers in ".$stateName." | Jacuzzi&reg; Hot Tubs");
+                //$this->set('metaDesc', 'Find '.$stateName.' hot tub dealers of the world\'s most recognized brand, Jacuzzi&reg; Hot Tubs. Search for authorized Jacuzzi hot tub spa dealers in '.$stateName.' to find the best discounts and deals.');
+                $this->set('layoutTitle', 'Hot Tubs '.$stateName.': Find Authorized Hot Tub Dealers in '.$stateName.' | Jacuzzi&reg; Hot Tubs');
+                $this->set('metaDesc', 'Find authorized hot tub dealers in '.$stateName.'. Visit the showroom and find out first-hand what the Jacuzzi&reg; Brand experience is all about!');
             }
             $this->set('metaKeyword', 'Hot Tubs in '.$stateName.',Hot Tubs '.$stateName.','.$stateName.' Hot Tubs,Jacuzzi Dealers '.$stateName);
             $this->set('ga_action', 'State');
