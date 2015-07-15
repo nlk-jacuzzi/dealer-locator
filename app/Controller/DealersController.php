@@ -28,7 +28,21 @@ class DealersController extends AppController
         $this->set('tabOn', 'dealers');
         $this->us_id = $this->Country->field('Country.id', array('Country.name' => 'United States'));
         $this->can_id = $this->Country->field('Country.id', array('Country.name' => 'Canada'));
-        $this->set('pending_num', $this->Dealer->find('count', array('conditions' => array('Dealer.dealer_id IS NOT NULL AND Dealer.approval_ready = 1'))));
+        //$this->set('pending_num', $this->Dealer->find('count', array('conditions' => array('Dealer.dealer_id IS NOT NULL AND Dealer.approval_ready = 1'))));
+        $options['joins'] = array(
+		    array('table' => 'dealers',
+		        'alias' => 'DealersPending',
+		        'type' => 'LEFT',
+		        'conditions' => array(
+		            'DealersPending.dealer_id = Dealer.id',
+		        )
+		    )
+		);
+		
+		$options['conditions'] = array('1 = 1 AND `Dealer`.`dealer_id` IS NULL AND `Dealer`.`published` LIKE \'%Y%\' AND `DealersPending`.`id` IS NOT NULL AND `DealersPending`.`approval_ready` = 1');
+		
+		$this->set('pending_num', $this->Dealer->find('count', $options));
+		
     }
     
     public function index(){
@@ -1784,7 +1798,7 @@ class DealersController extends AppController
 
     function email_notify_marketing($id, $is_new = true)
     {
-        $to = 'alex.levine@ninthlink.com';
+        $to = 'alex.levine@ninthlink.com,jamie.murrett@jacuzzi.com,amanda@ninthlink.com';
 
         // $to .= ', ' . 'someone-else@ninthlink.com';  // <--- to add another mail recipient uncomment this line and change email address
 
