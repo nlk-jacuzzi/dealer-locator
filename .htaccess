@@ -1,17 +1,17 @@
 <IfModule mod_rewrite.c>  
    RewriteEngine on
-#   RewriteBase dealer-locator/
+   RewriteBase /hot-tubs/dealer-locator/
 
    #redirect so that the site always goes to www
    #RewriteCond %{HTTP_HOST} !^www\.
    #RewriteRule (.*) http://www.%{HTTP_HOST}/dealer-locator/$1 [R=301,L]
 
-  # RewriteCond %{HTTP_HOST} !^www\. [OR]
-  # RewriteCond %{HTTP_HOST} ^www\.(.*)\.jacuzzi\.com
-  # RewriteRule ^(.*)$ http://www.jacuzzi.com/hot-tubs/dealer-locator/$1 [L,R=301]
+   RewriteCond %{HTTP_HOST} !^www\. [OR]
+   RewriteCond %{HTTP_HOST} ^www\.(.*)\.jacuzzi\.com
+   RewriteRule ^(.*)$ http://www.jacuzzi.com/hot-tubs/dealer-locator/$1 [L,R=301]
    
    # 301 redirect jacuzzideals.com to jacuzzihottubs.com
-  # RewriteCond %{HTTP_HOST} jacuzzideals.com [NC]
+   RewriteCond %{HTTP_HOST} jacuzzideals.com [NC]
   # RewriteRule ^(.*) http://67.21.112.136/dealer-locator/$1 [R=301,NC,L]
   # RewriteRule ^(.*) http://jacuzzihottubs.com/dealer-locator/$1 [R=301,NC,L]
    RewriteRule    ^css/(.*)$ app/webroot/css/$1 [L]

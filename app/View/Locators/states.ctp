@@ -91,9 +91,7 @@ foreach ($stateList as $key => $s) {
 
 <div class="horz660"></div>
 <div style="margin:0px 8px 8px 5px;">
-    <?php if(!empty($stateInfo['State']['body'])){
-        echo $stateInfo['State']['body'];
-    }elseif ($countryId == 3) { ?>
+    <?php if ($countryId == 3) { ?>
         <p style="color:#797979">
             Jacuzzi provides the world's most recognized brand of hot tubs and spas.
         </p>
