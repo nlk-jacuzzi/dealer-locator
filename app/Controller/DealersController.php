@@ -1689,6 +1689,8 @@ class DealersController extends AppController
                 <p>You can view the current version at <a href="'.$parent_link.'">'.$parent_link.'</a> or view the dealer\'s changes at <a href="'.$dealer_link.'">'.$dealer_link.'</a></p>';
             $message .= '</body></html>';
             $headers = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'From: dealers@ninthlink.com' . "\r\n" .
+                'Reply-To: dealers@ninthlink.com' . "\r\n";
             $headers .= 'Cc: martin.borsanyi@jacuzzi.com' . "\r\n";
             //$headers .= 'Bcc: russell@ninthlink.com' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -1729,8 +1731,10 @@ class DealersController extends AppController
             $message .= '<body><p>'.$feedback.'</p>';
             $message .= '</body></html>';
             $headers = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'From: dealers@ninthlink.com' . "\r\n" .
+                'Reply-To: dealers@ninthlink.com' . "\r\n";
             //$headers .= 'Cc: chris.barnwell@ninthlink.com' . "\r\n";
-            $headers .= 'From: chris.barnwell@ninthlink.com' . "\r\n";
+            //$headers .= 'From: chris.barnwell@ninthlink.com' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             mail( $email, $subject, $message, $headers);
         }
@@ -1774,8 +1778,10 @@ class DealersController extends AppController
             $message .= '<body><p>Thank you for submitting your updated content for your Jacuzzi Hot Tubs dealership page. We appreciate your dedication to providing consumers with the with the latest information. We will review content and get back to you within 2 business days.</p>';
             $message .= '</body></html>';
             $headers = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'From: dealers@ninthlink.com' . "\r\n" .
+                'Reply-To: dealers@ninthlink.com' . "\r\n";
             //$headers .= 'Cc: chris.barnwell@ninthlink.com' . "\r\n";
-            $headers .= 'From: chris.barnwell@ninthlink.com' . "\r\n";
+            //$headers .= 'From: chris.barnwell@ninthlink.com' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
             mail( $email, $subject, $message, $headers);
@@ -1804,6 +1810,8 @@ class DealersController extends AppController
                         '</body></html>';
             $headers = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Cc: chris.barnwell@ninthlink.com' . "\r\n";
+            $headers .= 'From: dealers@ninthlink.com' . "\r\n" .
+                'Reply-To: dealers@ninthlink.com' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
             mail( $to, $subject, $message, $headers);
