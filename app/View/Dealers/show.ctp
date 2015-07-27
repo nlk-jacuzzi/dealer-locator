@@ -374,7 +374,7 @@ Sunday: CLOSED<br />';
 	function checkaboutlength()
 	{
 		console.log('Total words are '+gettmcestats('DealerAboutBody').words);
-		
+	<?php if($admin != 1){?>
         if (gettmcestats('DealerAboutBody').words < 250) {
             alert("Please revise About Body section. Must be a minimum of 250 words before submission for approval.");
             return false;
@@ -382,7 +382,8 @@ Sunday: CLOSED<br />';
         else
         {
         	return true;
-        }		
+        }
+        <?php }else echo 'return true;';?>
 	}
 	
     function saveDealer()
