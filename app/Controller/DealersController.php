@@ -162,6 +162,8 @@ class DealersController extends AppController
     }
     
     function show($id=null){
+        pr($this->Session->read('login'));
+        pr($this);
         $group_id = $this->checkLogin($id);
         $this->layout = "admin";
         $this->getQuery();
