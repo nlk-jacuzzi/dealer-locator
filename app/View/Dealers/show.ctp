@@ -375,8 +375,8 @@ Sunday: CLOSED<br />';
 	{
 		console.log('Total words are '+gettmcestats('DealerAboutBody').words);
 	<?php if($admin != 1){?>
-        if (gettmcestats('DealerAboutBody').words < 250) {
-            alert("Please revise About Body section. Must be a minimum of 250 words before submission for approval.");
+        if (gettmcestats('DealerAboutBody').words < 150) {
+            alert("Please revise About Body section. Must be a minimum of 150 words before submission for approval.");
             return false;
         }
         else
@@ -387,13 +387,7 @@ Sunday: CLOSED<br />';
 	}
 	
     function saveDealer()
-    {
-    	if(!checkaboutlength())
-    	{
-    		return false;
-    	}
-    	
-    	
+    {	
         //$ = getElementById
         $('input-action').value = "save"; //changing hidden field id=input-action
         $('form-dealers').submit(); //submit form-dealers
