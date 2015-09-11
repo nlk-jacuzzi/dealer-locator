@@ -338,7 +338,13 @@ Sunday: CLOSED<br />';
                             <div class="form-bottom">
                                 <p>
                                     Approval Message: <i>(This is only sent to the dealer if you approve the changes and will not be saved)</i><br />
-                                    <?php echo $this->Form->textarea('Message.approval_message', array('style' => 'width:514px', 'default' => 'Thank you. The edits made to your Jacuzzi Hot Tubs dealer page have been approved.'));?><br />
+                                    <?php 
+                                    $default_approval_text = 'Thank you. The edits you made to your Jacuzzi® Hot Tubs dealer page have been approved. You may see your changes by visiting your page online at '.$this->Html->url('/', true).'.
+
+To request more updates please log in to your account here: '.$this->Html->url('/dealers/login', true).'
+
+Thank you.';
+                                    echo $this->Form->textarea('Message.approval_message', array('style' => 'width:514px', 'default' => $default_approval_text));?><br />
                                     <input type="button" style="width:409px" onclick="if(confirm('Are you sure you want to approve these changes to go live?  This will overwrite all the current live dealer information.')){saveApproved();}" value="Save And Approve Changes" />
                                 </p>
                                 <p>
