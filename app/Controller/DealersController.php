@@ -1735,19 +1735,11 @@ class DealersController extends AppController
     {
         $feedback = str_replace(array("\n\r", "\n"), '<br />', $feedback);
         $email = '';
-        if($this->Session->check("login")){
-            $user = $this->Session->read("login");
-            if(!empty($user['email'])){
-                $email = $user['email'];
-            }
-        }
         $dealer_id = $this->Dealer->field('dealer_id', array("Dealer.id" => $id));
-        if(empty($email)){
-            if(!empty($dealer_id)){
-                $user = $this->User->find('first', array('conditions' => array('dealer_id' => $dealer_id)));
-                if(!empty($user)){
-                    $email = $user['User']['email'];
-                }
+        if(!empty($dealer_id)){
+            $user = $this->User->find('first', array('conditions' => array('dealer_id' => $dealer_id)));
+            if(!empty($user)){
+                $email = $user['User']['email'];
             }
         }
         //$email = 'aimee@ninthlink.com';
