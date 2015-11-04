@@ -73,6 +73,7 @@
                 var messageVal = "Address: <?php echo $dealer['Dealer']['address1'].(!empty($dealer['Dealer']['address2']) ? ', '.$dealer['Dealer']['address2'] : '').', '.$dealer['Dealer']['city'].', '.$dealer['State']['abbreviation'].' '.$dealer['Dealer']['zip']; ?>" + "\n" + "Phone: <?php echo $dealer['Dealer']['phone'] ?>" + "\n" + "Website: <?php echo $dealer['Dealer']['website']; ?>";
                 var data = { action: 'sms_dealer_email', emailTo: emailToVal, subject: subjectVal, message: messageVal };
                 console.log('canSubmit: '+canSubmit);
+                console.log(data);
                 if ( canSubmit == true ) {
                     $.post(
                         "<?php echo FULL_BASE_URL.dirname($this->base);?>wp-admin/admin-ajax.php",
