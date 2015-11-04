@@ -75,7 +75,7 @@
                 console.log('canSubmit: '+canSubmit);
                 if ( canSubmit == true ) {
                     $.post(
-                        "<?php echo FULL_BASE_URL.dirname($this->base);?>/wp-admin/admin-ajax.php",
+                        "<?php echo FULL_BASE_URL.dirname($this->base);?>wp-admin/admin-ajax.php",
                         data,
                         function(response) {
                             $('#sms-form').hide();
