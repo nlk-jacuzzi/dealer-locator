@@ -35,6 +35,7 @@
         Router::connect('/cities/:stateInfo/:cityInfo', array('controller' => 'locators', 'action' => 'cities'), array('pass' => array('stateInfo', 'cityInfo')));
         Router::connect('/cities/*', array('controller' => 'locators', 'action' => 'cities'));
         Router::connect('/index', array('controller' => 'locators', 'action' => 'index', 'index'));
+        Router::connect('/owners', array('controller' => 'locators', 'action' => 'owners', 'owners'));
         Router::connect('/dealers', array('controller' => 'dealers', 'action' => 'index'));
         Router::connect('/dealers/:action', array('controller' => 'dealers'));
         Router::connect('/dealers/:action/*', array('controller' => 'dealers'));
