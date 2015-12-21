@@ -106,10 +106,12 @@ var WRInitTime=(new Date()).getTime();
     <div class="bd">
         <div class="wrap">
             <div class="twoCol">
-              <?php if (in_array($this->action, array('index', 'owners'))) { ?>
+              <?php if (in_array($this->action, array('index'))) { ?>
                   <!-- some html goes here -->
                 
                   <?php echo $this->element('dealerLocateBlack'); ?>
+              <?php }elseif($this->action == 'owners'){?>
+                  <?php echo $this->element('dealerLocateBlackOwners'); ?>
               <?php } else { ?>
                 <div class="side">
                     <?php echo $this->element('dealerLocate'); ?>
