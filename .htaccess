@@ -20,6 +20,7 @@
    RewriteRule    ^omniture/(.*)$ app/locators/omniture/$1 [L]
    RewriteRule    ^/?$ app/locators/index [L]
    RewriteRule    ^index/?$ app/locators/index [L]
+   RewriteRule    ^owners/?$ app/locators/owners [L]
    RewriteRule    ^states/(.*)$ app/locators/states/$1 [L]
    RewriteRule    ^cities/(.*)$ app/locators/cities/$1 [L]
    RewriteRule    ^dealers/(.*)$ app/dealers/$1 [L]
