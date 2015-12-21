@@ -112,6 +112,20 @@ class LocatorsController extends AppController
         $this->set('barTitle', 'Hot Tub Dealers');
         $this->set('ga_action', 'Main');
     }
+    
+    function owners(){
+        $this->layout = "jacuzzi"; # locator/jacuzzi        
+        $defaultCtry = $this->defaultcountry();
+        $this->set('defaultCtry', $defaultCtry);
+        $this->set('countryList', $this->Country->getCountryList());
+        $this->set('stateList', $this->State->find('all', array('conditions' => array('not' => array('State.name' => array("", "DC")), 'State.country_id' => 1), 'fields' => array('name', 'abbreviation'), 'sort' => 'name ASC', 'recursive' => -1))); #generate list of states
+        $this->set('provList', $this->State->find('all', array('conditions' => array('not' => array('State.name' => array("", "DC")), 'State.country_id' => 3), 'fields' => array('name', 'abbreviation'), 'sort' => 'name ASC', 'recursive' => -1))); #generate list of states
+        $this->set('layoutTitle', 'Hot Tub Dealers: Find Jacuzzi Hot Tub Spa Stores & Retailers | Jacuzzi&reg; Hot Tubs');
+        $this->set('metaKeyword', 'Hot Tub Dealers,Spa Dealer,Hot Tub Dealer,Spa Dealers');
+        $this->set('metaDesc', 'Find local hot tub dealers of the world\'s most recognized brand, Jacuzzi&reg; Hot Tubs. Locate your authorized Jacuzzi hot tub spa store for the best discounts and deals.');
+        $this->set('barTitle', 'Hot Tub Dealers');
+        $this->set('ga_action', 'Main');
+    }
 
     function verifyUSCA($countryID){
         $inUSCA = null;

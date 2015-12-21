@@ -57,7 +57,7 @@ var thickboxL10n = {"next":"Next >","prev":"< Prev","image":"Image","of":"of","c
 <!-- End GA Code -->
 <?php echo $jht_do_hreflang; ?>
 </head>
-<body class="page locate-dealer-<?php echo $this->action == 'index' ? 'landing' : 'result' ?>">
+<body class="page locate-dealer-<?php echo in_array($this->action, array('index', 'owners')) ? 'landing' : 'result' ?>">
 
 <?php if ( isset($dealer) && $dealer['Dealer']['city'] ) { ?>
 <script>dataLayer = [{'searchLocation': "<?php echo $dealer['Dealer']['city'] . ', ' . $dealer['State']['name'] . ', ' . $dealer['Country']['name']; ?>"}];</script>
@@ -106,7 +106,7 @@ var WRInitTime=(new Date()).getTime();
     <div class="bd">
         <div class="wrap">
             <div class="twoCol">
-              <?php if ($this->action == 'index') { ?>
+              <?php if (in_array($this->action, array('index', 'owners'))) { ?>
                   <!-- some html goes here -->
                 
                   <?php echo $this->element('dealerLocateBlack'); ?>
@@ -137,4 +137,4 @@ var WRInitTime=(new Date()).getTime();
               <?php echo $this->element('sql_dump'); ?>
             </div>
             <?php include(WWW_ROOT.'/dealer_ip/get_dealer.php');?>
-<?php readfile($wp_base.'footer-dl'. ($this->action == 'index' ? 'landing' : 'results') .'/'); ?>
+<?php readfile($wp_base.'footer-dl'. (in_array($this->action, array('index', 'owners')) ? 'landing' : 'results') .'/'); ?>
