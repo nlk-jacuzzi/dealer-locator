@@ -20,7 +20,7 @@
 </script>
 
 <div class="dealer-locate-black">
-    <h2 class="pageintro">Jacuzzi<sup>&reg;</sup> Hot Tub<br />Owner's Supports</h2>
+    <h2 class="pageintro">Jacuzzi<sup>&reg;</sup> Hot Tub<br />Owner's Support</h2>
     <p><strong>Locate your nearest authorized Jacuzzi<sup>&reg;</sup> Hot Tub showroom to:</strong></p>
     <ul>
         <li><span>Fulfill maintenance needs</span></li>
