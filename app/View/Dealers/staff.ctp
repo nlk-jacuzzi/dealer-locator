@@ -25,7 +25,10 @@
             ?>
             <div>For each staff member, please enter their name, position, select an image (optional), and a brief description of their experience. Images will be scaled and cropperd to 100px by 100 px. You can find a FREE online image editor at <a href="https://pixlr.com/editor/" target="_blank">https://pixlr.com/editor/</a>
             <br>Click "Save and Continue Editing" to add more, or "Save and Request Approval" if you are done editing your dealer information. </div>
-            <?php $disabled = FALSE;
+            <br>Please use filenames with only letters and numbers.</div>
+            <?php
+            echo $this->Form->error('Staff.photo', 'Please select image files with only letters and numbers in the filenames.');
+            $disabled = FALSE;
             if($admin == 2){
                 unset($copy_id);
                 unset($orig_data);

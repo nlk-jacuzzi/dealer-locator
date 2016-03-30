@@ -161,8 +161,9 @@ if($admin == 1){?>
                         }
                         if(empty($data['Dealer']['promo_image'])){
                             $fields['promo_image'] = array('type' => 'file');
-                            $fields['promo_image']['after'] = '<br /><font color="red"><b>Image will be scaled and cropped to 640px by 100px.</b></font><br />You can find a FREE online image editor at <a href="https://pixlr.com/editor/" target="_blank">https://pixlr.com/editor/</a>
+                            $fields['promo_image']['after'] = '<br /><font color="red"><b>Please use a filename with only letters and numbers. Image will be scaled and cropped to 640px by 100px.</b></font><br />You can find a FREE online image editor at <a href="https://pixlr.com/editor/" target="_blank">https://pixlr.com/editor/</a>
                             </td>';
+                            $fields['promo_image']['error']['promo_image_name'] = 'Please use a filename with only letters and numbers';
                         }
                         $fields['hours']['before'] = '<b>Please format your hours of operation like the following:</b><br />
 Monday - Friday: 10AM - 5:30PM<br />

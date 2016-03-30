@@ -344,10 +344,13 @@ class DealersController extends AppController
                 $save_data['User'] = $data['User'];
             }
             if(is_array($save_data['Dealer']['promo_image'])){
+                if (!empty($save_data['Dealer']['promo_image']['name']) && !preg_match("/"."^[A-Za-z\d]+\.[A-Za-z]{3,4}$"."/i", $save_data['Dealer']['promo_image']['name'])){
+                    $this->Dealer->invalidate('promo_image', 'Please use only letters and numbers in your filename.');
+                }
                 $save_data['Dealer']['promo_image'] = '';
             }
             $presave_data = $this->Dealer->find('first', array('conditions' => array('id' => $id), 'recursive' => -1));
-            if ($this->Dealer->saveAll($save_data)){
+            if (empty($this->Dealer->validationErrors) && $this->Dealer->saveAll($save_data)){
                 if(!empty($id) && $group_id == 1 && $save_data['Dealer']['dealer_id'] == ''){
                     $dealer_data = $this->Dealer->find('first', array('conditions' => array('dealer_id' => $id), 'recursive' => -1));
                     if(!empty($dealer_data)){
@@ -949,6 +952,7 @@ class DealersController extends AppController
         $this->set_cache();
         $this->set('group_id', $group_id);
         $fail = FALSE;
+        $name_fail = FALSE;
         $copy_id = $this->Dealer->field('id', array('dealer_id' => $id));
         if(!empty($copy_id)){
             $this->copy_cropped_image($id, $copy_id, 'store');
@@ -967,17 +971,28 @@ class DealersController extends AppController
             $resize_images = array();
             foreach($this->request->data['Image'] as $i){
                 if(!empty($i['path']) && isset($i['path']['error']) && empty($i['path']['error'])){
-                    $fileName = $this->upload_file($id, $i['path'], 'store');
                     $this->Dealer->Image->create();
-                    if(!$this->Dealer->Image->save(array('Image' => array('dealer_id' => $id, 'path' => $fileName)))){
-                        $fail = TRUE;
-                    }else{
-                        $resize_images[] = '/files/dealer_imgs/'.$id.'/store/'.$fileName;
+                    if (!empty($i['path']['name']) && !preg_match("/"."^[A-Za-z\d]+\.[A-Za-z]{3,4}$"."/i", $i['path']['name'])){
+                        $this->Dealer->Image->invalidate('path', 'Please use only letters and numbers in your filename.');
+                        $name_fail = TRUE;
                     }
-                    $replace_data[] = array('path' => $fileName, 'dealer_id' => $copy_id);
+                    if(empty($this->Dealer->Image->validationErrors)){
+                        $fileName = $this->upload_file($id, $i['path'], 'store');
+                        if(!$this->Dealer->Image->save(array('Image' => array('dealer_id' => $id, 'path' => $fileName)))){
+                            $fail = TRUE;
+                        }else{
+                            $resize_images[] = '/files/dealer_imgs/'.$id.'/store/'.$fileName;
+                        }
+                        $replace_data[] = array('path' => $fileName, 'dealer_id' => $copy_id);
+                    }else{
+                        $fail = TRUE;
+                    }
                 }elseif(!empty($i['path']) && !is_array($i['path'])){
                     $replace_data[] = array('path' => $i['path'], 'dealer_id' => $copy_id);
                 }
+            }
+            if($name_fail){
+                $this->Dealer->Image->invalidate('path', 'Please use only letters and numbers in your filename.');
             }
             if(!$fail){
                 if($replace){
@@ -1148,15 +1163,21 @@ class DealersController extends AppController
             
             
             $resize_images = array();
+            $name_fail = FALSE;
             foreach($this->request->data['Staff'] as $n => $i){
                 $replace_data[$n] = $i;
                 $replace_data[$n]['dealer_id'] = $copy_id;
                 unset($replace_data[$n]['id']);
                 if(!empty($i['photo']) && empty($i['photo']['error'])){
-                    $this->request->data['Staff'][$n]['photo'] = $this->upload_file($id, $i['photo'], 'staff');
-                    $resize_images[] = '/files/dealer_imgs/'.$id.'/staff/'.$this->request->data['Staff'][$n]['photo'];
-                    if($replace){
-                        $replace_data[$n]['photo'] = $this->request->data['Staff'][$n]['photo'];
+                    if (!empty($i['photo']['name']) && !preg_match("/"."^[A-Za-z\d]+\.[A-Za-z]{3,4}$"."/i", $i['photo']['name'])){
+                        $this->Dealer->Staff->invalidate('photo', 'Please use only letters and numbers in your filename.');
+                        $name_fail = TRUE;
+                    }else{
+                        $this->request->data['Staff'][$n]['photo'] = $this->upload_file($id, $i['photo'], 'staff');
+                        $resize_images[] = '/files/dealer_imgs/'.$id.'/staff/'.$this->request->data['Staff'][$n]['photo'];
+                        if($replace){
+                            $replace_data[$n]['photo'] = $this->request->data['Staff'][$n]['photo'];
+                        }
                     }
                 }else{
                     if(!isset($i['photo']) && isset($i['id'])){
@@ -1166,7 +1187,7 @@ class DealersController extends AppController
                 }
                 $this->request->data['Staff'][$n]['dealer_id'] = $id;
             }
-            if(empty($this->request->data['Staff']) || $this->Dealer->Staff->saveAll($this->request->data['Staff'])){
+            if(empty($this->request->data['Staff']) || (!$name_fail && $this->Dealer->Staff->saveAll($this->request->data['Staff']))){
                 //if(isset($this->request->data['Staff'][0])){
                 //    unset($this->request->data['Staff'][0]);
                 //}

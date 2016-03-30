@@ -23,8 +23,10 @@
             }
             echo $this->element('dealer_tabs');?>
             <div>Upload up to 4 images that will appear at the top of your dealer page. Images, for example, might show your showroom floor or the front of your building. Images will rotate automatically. <br>Click "Save and Continue Editing" to add more, or "Save and Request Approval" if you are done editing your dealer information. <br><a href="http://www.jacuzzi.com/hot-tubs/dealer-locator/files/Dealer-Images.pdf">To learn more about uploading dealer images, please click here to download the instructional pdf</a>.</div> 
-            <div class="error-banner">Images will be scaled and cropped to 304px by 205px.</div>
-            <?php $disabled = FALSE;
+            <div class="error-banner">Please use filenames with only letters and numbers. Images will be scaled and cropped to 304px by 205px.</div>
+            <?php
+            echo $this->Form->error('Image.path', 'Please select image files with only letters and numbers in the filenames.');
+            $disabled = FALSE;
             if($admin == 2){
                 unset($copy_id);
                 unset($orig_data);
