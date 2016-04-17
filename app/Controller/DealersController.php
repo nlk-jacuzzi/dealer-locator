@@ -1979,5 +1979,68 @@ class DealersController extends AppController
         GROUP BY Dealer.address1 ORDER BY Dealer_Distance LIMIT 1");
         return $temp;
     }
+	
+    function get_truckload_ca_cities_json(){
+        $cities = array_values(
+            $this->Dealer->find(
+                'all', array(
+                    'conditions' => array(
+                        //'default_promo' => 1,
+                        'additional_html_end >=' => time(),
+                        'published' => 'Y',
+                        array('Dealer.country_id' => 3)
+                        ),
+                    'limit' => 5,
+                    'fields' => array(
+                        'city',
+                        'slug',
+                        'name',
+                        'phone',
+                        'address1',
+                        'zip',
+                        'website',
+                        'additional_html_end',
+                        'additional_html_start',
+                        'alternate_truckload_address',
+                        'alternate_truckload_city',
+                        'alternate_truckload_state',
+                        'alternate_truckload_zip',
+                        'alternate_truckload_name'
+                        ),
+                    'order' => 'additional_html_end ASC',
+                    'contain' => array(
+                        'State' => array(
+                            'name', 'abbreviation',
+                            )
+                        )
+                    )
+                )
+            );
+        $return = array();
+
+        foreach($cities as $c){
+            $state = str_replace(' ', '-', strtolower($c['State']['name'].'-'.$c['State']['abbreviation']));
+            $return[] = array(
+                'name' => $c['Dealer']['name'],
+                'address' => $c['Dealer']['address1'],
+                'city' => $c['Dealer']['city'],
+                'state' => $c['State']['abbreviation'],
+                'zip' => $c['Dealer']['zip'],
+                'phone' => $c['Dealer']['phone'],
+                'link' => '/'.$state.'/'.$c['Dealer']['slug'],
+                'website' => $c['Dealer']['website'],
+                'tl_name' => $c['Dealer']['alternate_truckload_name'],
+                'tl_address' => $c['Dealer']['alternate_truckload_address'],
+                'tl_city' => $c['Dealer']['alternate_truckload_city'],
+                'tl-state' => $c['State']['alternate_truckload_state'],
+                'tl_zip' => $c['Dealer']['alternate_truckload_zip'],
+                'start_date' => date('m-d-y', $c['Dealer']['additional_html_start']),
+                'end_date' => date('m-d-y', $c['Dealer']['additional_html_end'])
+                );
+        }
+        echo json_encode($return);
+        die();
+    }
+    
 }
 ?>
